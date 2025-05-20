@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard de Estoque</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Dashboard de Estoque</h1>
+    </header>
+    <div class="chart-container">
+      <canvas id="estoqueChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    const labels = {{ produtos | tojson | safe }};
+    const data = {{ quantidades | tojson | safe }};
+    
+    console.log("Produtos:", labels);
+    console.log("Quantidades:", data);
+  
+    const ctx = document.getElementById('estoqueChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Quantidade em Estoque',
+          data: data,
+          backgroundColor: '#007bff'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>  
+</body>
+</html>
