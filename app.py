@@ -8,7 +8,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, 'data.json')
 
-app = Flask(__name__, static_folder='../static', template_folder='index.html')
+app = Flask(__name__, static_folder='../static', template_folder='templates')
 CORS(app)
 
 def read_data():
